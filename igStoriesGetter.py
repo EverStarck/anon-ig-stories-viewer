@@ -10,7 +10,7 @@ headers = {"user-agent": USER_AGENT, "cookie": COOKIE}
 
 
 profile = sys.argv[1]
-getInfoUrl = f"https://www.instagram.com/{profile}/?__a=1"
+getInfoUrl = f"https://i.instagram.com/api/v1/users/web_profile_info/?username={profile}"
 
 
 # initialize colorama
@@ -28,10 +28,10 @@ def getID():
         res = req.get(getInfoUrl)
         userInfo = res.json()
         return {
-            "id": userInfo["graphql"]["user"]["id"],
-            "followersNumber": userInfo["graphql"]["user"]["edge_follow"]["count"],
-            "isPrivate": userInfo["graphql"]["user"]["is_private"],
-            "followed_by_viewer": userInfo["graphql"]["user"]["followed_by_viewer"],
+            "id": userInfo["data"]["user"]["id"],
+            "followersNumber": userInfo["data"]["user"]["edge_follow"]["count"],
+            "isPrivate": userInfo["data"]["user"]["is_private"],
+            "followed_by_viewer": userInfo["data"]["user"]["followed_by_viewer"],
         }
     except:
         print(
